@@ -1,50 +1,35 @@
 import { Router } from 'express';
-import { readJSON } from '../util.js';
+import { PersonaModel } from '../models/personaje.js';
 
-const hp = readJSON('./api/personajes.json') 
  export const apiRouter = Router();
 
-apiRouter.get('/',(req,res)=>{
-    
+apiRouter.get('/', async(req,res)=>{
     const {house} = req.query
-   
-    if(house){
-        const filterHouse = hp.filter((persona)=>persona.house===house);
-        return res.json(filterHouse);   
-    }
-
+    const hp =  await PersonaModel.getAll({house})
     res.json(hp)
 })
 
-apiRouter.get('/:id',(req,res)=>{
+apiRouter.get('/:id', async(req,res)=>{
     
     const {id} = req.params
-
-    const personaje = hp.find((persona)=> persona.id === id)
-
-    if(personaje) return res.status(200).json(personaje)
-
+    const hp = await PersonaModel.getById({id})
+    if(hp) return res.json(hp)
     res.status(404).json({
         message: "Personaje not Found"
     })
 })
 
-apiRouter.delete('/:id',(req,res)=>{
+apiRouter.delete('/:id', async (req,res)=>{
     
     const {id} = req.params
+    const result = await PersonaModel.deleteById({id})
 
-    const personajeIndex = hp.findIndex(persona => persona.id === id)
-
-    if(personajeIndex === -1){
-        return res.status(404).json({
-            message: "Personaje not Found"
-        })
-    }
-    hp.splice()
-    hp.splice(personajeIndex,1)
-
+    if(result === false) return res.status(404).json({
+        message: 'Personaje not Found'
+    })
+    
     res.status(200).json({
-        message: "Personaje eliminado"
+        message: "Personaje deleted"
     })
 })
 
