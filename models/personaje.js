@@ -1,6 +1,6 @@
-import { readJSON } from '.../util.js';
+import { readJSON } from '../util.js';
 
-const hp = readJSON('../api/personajes.json') 
+const hp = readJSON('./api/personajes.json') 
 
 export class PersonaModel{
     static async getAll ({house}){
