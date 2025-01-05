@@ -1,0 +1,23 @@
+GET http://localhost:3000/api
+
+
+
+###
+GET http://localhost:3000/api/d5c4daa3-c726-426a-aa98-fb40f3fba816
+
+###
+DELETE http://localhost:3000/api/d5c4daa3-c726-426a-aa98-fb40f3fba816
+
+
+
+###
+GET http://localhost:3000/api?house=Gryffindor
+
+###
+GET http://localhost:3000/api?house=Slytherin
+
+###
+GET http://localhost:3000/api?house=Hufflepuff
+
+###
+GET http://localhost:3000/api?house=Ravenclaw
